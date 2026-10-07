@@ -27,4 +27,8 @@ public class Maintenance {
 
     @Column(precision = 10, scale = 2)
     private BigDecimal cout;
+
+    @ManyToOne
+    @JoinColumn(name = "id_vehicule")
+    private Vehicule vehicule;
 }

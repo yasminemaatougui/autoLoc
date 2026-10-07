@@ -2,6 +2,8 @@ package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -24,4 +26,10 @@ public class Contrat {
     private BigDecimal montantTotal;
 
     private boolean valide;
+
+    @OneToOne(mappedBy = "contrat")
+    private Reservation reservation;
+
+    @OneToMany(mappedBy = "contrat", fetch = FetchType.EAGER)
+    private List<Paiement> paiements = new ArrayList<>();
 }

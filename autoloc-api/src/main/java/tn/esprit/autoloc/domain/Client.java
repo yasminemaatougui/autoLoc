@@ -2,6 +2,8 @@ package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDate;
 
 @Entity
@@ -36,4 +38,7 @@ public class Client {
 
     @Column(nullable = false)
     private LocalDate dateNaissance;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations = new ArrayList<>();
 }

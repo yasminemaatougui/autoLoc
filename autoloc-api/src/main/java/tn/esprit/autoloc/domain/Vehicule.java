@@ -2,6 +2,8 @@ package tn.esprit.autoloc.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.math.BigDecimal;
 
 @Entity
@@ -35,4 +37,17 @@ public class Vehicule {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_agence", nullable = true)
+    private Agence agence;
+
+    @OneToMany(mappedBy = "vehicule", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Reservation> reservations = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "vehicule_equipement",
+            joinColumns = @JoinColumn(name = "id_vehicule"),
+            inverseJoinColumns = @JoinColumn(name = "id_equipement"))
+    private List<Equipement> equipements = new ArrayList<>();
 }

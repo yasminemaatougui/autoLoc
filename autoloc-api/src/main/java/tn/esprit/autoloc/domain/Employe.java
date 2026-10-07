@@ -34,4 +34,8 @@ public class Employe {
 
     @Column(nullable = false)
     private LocalDate dateEmbauche;
+
+    @ManyToOne
+    @JoinColumn(name = "id_agence")
+    private Agence agence;
 }
