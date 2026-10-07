@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: autoloc-api
+
+  # Connexion a la base de donnees
+  datasource:
+    url: jdbc:mysql://localhost:3306/autoloc_db?createDatabaseIfNotExist=true
+    username: root
+    password: root
+
+  # Hibernate / JPA
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+# Logs
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    tn.esprit.autoloc: INFO
