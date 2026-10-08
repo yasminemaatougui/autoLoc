@@ -3,6 +3,10 @@ package tn.esprit.autoloc;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.domain.CategorieVehicule;
@@ -105,5 +109,26 @@ public class AgenceTests {
     @Test
     public void fullLoadAgence() {
         loadAgence(fullAgenceRepository, "fullAgenceRepository");
+    }
+
+    @Test
+    public void loadPagedAgences() {
+        Pageable pageable = PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "idAgence"));
+        Page<Agence> page = fullAgenceRepository.findAll(pageable);
+
+        System.out.println("Nombre total de pages : " + page.getTotalPages());
+        System.out.println("Page en cours : " + page.getNumber());
+
+        StringBuilder result = new StringBuilder();
+        result.append("Nombre total de pages : ").append(page.getTotalPages()).append("\n");
+        result.append("Page en cours : ").append(page.getNumber()).append("\n");
+
+        page.getContent().forEach(agence -> result.append("Agence ")
+                .append(agence.getIdAgence())
+                .append(" : ")
+                .append(agence.getNom())
+                .append('\n'));
+
+        fail(result.toString());
     }
 }
