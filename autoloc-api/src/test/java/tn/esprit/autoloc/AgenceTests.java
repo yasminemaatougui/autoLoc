@@ -7,9 +7,6 @@ import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -92,32 +89,6 @@ public class AgenceTests {
     @Test
     void fullLoadAgence() {
         loadAgence(fullAgenceRepository, "JpaRepository");
-    }
-
-    @Test
-    void loadSortedAgences() {
-        StringBuilder sb = new StringBuilder();
-        for (Agence agence : fullAgenceRepository.findAll(Sort.by(Sort.Direction.DESC, "idAgence"))) {
-            sb.append("Agence ").append(agence.getIdAgence())
-              .append(" : ").append(agence.getNom())
-              .append(" - ").append(agence.getVille()).append("\n");
-        }
-        fail(sb.toString());
-    }
-
-    @Test
-    void loadPagedAgences() {
-        Page<Agence> page = fullAgenceRepository.findAll(
-                PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "idAgence")));
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre total de pages : ").append(page.getTotalPages()).append("\n");
-        sb.append("Page en cours : ").append(page.getNumber()).append("\n");
-        for (Agence agence : page.getContent()) {
-            sb.append("Agence ").append(agence.getIdAgence())
-              .append(" : ").append(agence.getNom())
-              .append(" - ").append(agence.getVille()).append("\n");
-        }
-        fail(sb.toString());
     }
 }
 
