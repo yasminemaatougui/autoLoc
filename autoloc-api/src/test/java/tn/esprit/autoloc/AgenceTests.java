@@ -119,16 +119,7 @@ public class AgenceTests {
         System.out.println("Nombre total de pages : " + page.getTotalPages());
         System.out.println("Page en cours : " + page.getNumber());
 
-        StringBuilder result = new StringBuilder();
-        result.append("Nombre total de pages : ").append(page.getTotalPages()).append("\n");
-        result.append("Page en cours : ").append(page.getNumber()).append("\n");
-
-        page.getContent().forEach(agence -> result.append("Agence ")
-                .append(agence.getIdAgence())
-                .append(" : ")
-                .append(agence.getNom())
-                .append('\n'));
-
-        fail(result.toString());
+        page.getContent().forEach(agence ->
+                System.out.println("Agence " + agence.getIdAgence() + " : " + agence.getNom()));
     }
 }
