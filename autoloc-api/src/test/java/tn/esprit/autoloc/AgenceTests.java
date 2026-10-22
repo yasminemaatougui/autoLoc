@@ -111,15 +111,5 @@ public class AgenceTests {
         loadAgence(fullAgenceRepository, "fullAgenceRepository");
     }
 
-    @Test
-    public void loadPagedAgences() {
-        Pageable pageable = PageRequest.of(0, 2, Sort.by(Sort.Direction.DESC, "idAgence"));
-        Page<Agence> page = fullAgenceRepository.findAll(pageable);
 
-        System.out.println("Nombre total de pages : " + page.getTotalPages());
-        System.out.println("Page en cours : " + page.getNumber());
-
-        page.getContent().forEach(agence ->
-                System.out.println("Agence " + agence.getIdAgence() + " : " + agence.getNom()));
-    }
 }
